@@ -1,4 +1,0 @@
-2022-10-03T00:25 [START] Logging Started 
-2022-10-03T00:25 set password 
-2022-10-03T00:25 viewed history 
-2022-10-03T00:25 [STOP] Logging Stopped 
