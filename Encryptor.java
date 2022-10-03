@@ -34,4 +34,26 @@ public class Encryptor {
             ex.printStackTrace();
         }
     }
+
+    public static String encrypt(String value, String key) {
+        String encryptedValue = "";
+        value = value.toUpperCase();
+        for (int i=0, j=0 ; i<value.length() ; i++) {
+            char letter = value.charAt(i);
+            encryptedValue += (char)(((letter - 65) + (key.charAt(j)-65)) % 26 + 65);
+            j = ++j % key.length();
+        }
+        return encryptedValue;
+    }
+
+    public static String decrypt(String value, String key) {
+        String decryptedValue = "";
+        value = value.toUpperCase();
+        for (int i = 0, j = 0; i < value.length(); i++) {
+            char letter = value.charAt(i);
+            decryptedValue += (char)((letter - key.charAt(j) + 26) % 26 + 65);
+            j = ++j % key.length();
+        }
+        return decryptedValue;
+    }
 }

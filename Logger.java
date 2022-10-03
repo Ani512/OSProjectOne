@@ -33,7 +33,7 @@ public class Logger {
                     Files.writeString(path, currentTime + " viewed history \n", StandardOpenOption.APPEND);
                 } else if (inp.equalsIgnoreCase("password")) {
                     currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
-                    Files.writeString(path, currentTime + " set password \n", StandardOpenOption.APPEND);
+                    Files.writeString(path, currentTime + " [PASSWORD] passkey updated \n", StandardOpenOption.APPEND);
                 }
                 inp = s.nextLine();
             }
