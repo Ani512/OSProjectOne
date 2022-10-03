@@ -20,18 +20,18 @@ public class Driver {
             try (Scanner fromMem = new Scanner(loggerInp)) {
                 PrintStream toMem = new PrintStream(loggerOut);
                 String inp = commands();
-                while (!inp.equalsIgnoreCase("quit") && !inp.equalsIgnoreCase("5")) {
+                while (!inp.equalsIgnoreCase("quit") && !inp.equalsIgnoreCase("6")) {
                     if (inp.equalsIgnoreCase("password") || inp.equalsIgnoreCase("1")) {
                         Scanner s = new Scanner(System.in);
-                        System.out.print("\tEnter Password: ");
+                        System.out.print("\tEnter Password(KEY): ");
                         String tempPass = s.nextLine();
                         if (tempPass.length() > 0) {
                             password = tempPass;
-                            System.out.println("\t\tPassword Updated: " + password);
+                            System.out.println("\t\tPassword(KEY) Updated: " + password);
                             toMem.println("password");
                             toMem.flush();
                         } else {
-                            System.out.println("\t\tInvalid Password");
+                            System.out.println("\t\tInvalid Password(KEY)");
                         }
                     }
 
@@ -45,7 +45,8 @@ public class Driver {
                         toMem.flush();
                     }
 
-                    else if (inp.equalsIgnoreCase("help") || inp.equalsIgnoreCase("6")) {
+                    else if (inp.equalsIgnoreCase("help") || inp.equalsIgnoreCase("5")) {
+                        System.out.println("Enter a command from the list of commands below. You may enter the number associated with the command or the actual command itself");
                         // DO NOTHING AND GO TAKE INPUT AGAIN
                     }
 
@@ -77,8 +78,8 @@ public class Driver {
         System.out.println("2: encrypt");
         System.out.println("3: decrypt");
         System.out.println("4: history");
-        System.out.println("5: quit");
-        System.out.println("6: help");
+        System.out.println("5: help");
+        System.out.println("6: quit");
 
         Scanner s = new Scanner(System.in);
         System.out.print("Enter Option: ");
@@ -92,5 +93,7 @@ public class Driver {
         }
     }
 
+    public static void encrypt() {
 
+    }
 }
