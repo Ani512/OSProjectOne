@@ -10,15 +10,14 @@ public class Driver {
         String password;
         try {
             Process logger = Runtime.getRuntime().exec(new String[] {"java", "Logger.java"});
-            InputStream loggerInp = logger.getInputStream();
             OutputStream loggerOut = logger.getOutputStream();
 
             Process encryptor = Runtime.getRuntime().exec(new String[] {"java", "Encryptor.java"});
-            InputStream encryptorInp = encryptor.getInputStream();
+            System.out.println(encryptor.pid());
             OutputStream encryptorOut = encryptor.getOutputStream();
 
-            try (Scanner fromMem = new Scanner(loggerInp)) {
-                PrintStream toMem = new PrintStream(loggerOut);
+            try (PrintStream toLogger = new PrintStream(loggerOut)) {
+                PrintStream toEncryptor = new PrintStream(encryptorOut);
                 String inp = commands();
                 while (!inp.equalsIgnoreCase("quit") && !inp.equalsIgnoreCase("6")) {
                     if (inp.equalsIgnoreCase("password") || inp.equalsIgnoreCase("1")) {
@@ -28,11 +27,16 @@ public class Driver {
                         if (tempPass.length() > 0) {
                             password = tempPass;
                             System.out.println("\t\tPassword(KEY) Updated: " + password);
-                            toMem.println("password");
-                            toMem.flush();
+                            toLogger.println("password");
+                            toLogger.flush();
                         } else {
                             System.out.println("\t\tInvalid Password(KEY)");
                         }
+                    }
+
+                    else if (inp.equalsIgnoreCase("encrypt") || inp.equalsIgnoreCase("2")) {
+                        toEncryptor.println("encrypt");
+                        toEncryptor.flush();
                     }
 
                     else if (inp.equalsIgnoreCase("history") || inp.equalsIgnoreCase("4")) {
@@ -41,8 +45,8 @@ public class Driver {
                         } else {
                             System.out.println("\tHistory is Empty :( ");
                         }
-                        toMem.println("history");
-                        toMem.flush();
+                        toLogger.println("history");
+                        toLogger.flush();
                     }
 
                     else if (inp.equalsIgnoreCase("help") || inp.equalsIgnoreCase("5")) {
@@ -57,13 +61,14 @@ public class Driver {
                     inp = commands();
                 }
 
-                toMem.println("loggerquit");
-                toMem.flush();
+                toEncryptor.println("encryptorquit");
+                toEncryptor.flush();
 
-                toMem.println("encryptorquit");
-                toMem.flush();
+                toLogger.println("loggerquit");
+                toLogger.flush();
             }
             logger.waitFor();
+
         } catch(IOException ex) {
             System.out.println("Unable to run Logger");
         } catch (InterruptedException e) {
@@ -88,12 +93,9 @@ public class Driver {
 
     // function to print history
     public static void getHistory(List<String> history) {
+        System.out.println("\tCurrent Data in History: ");
         for (String record: history) {
-            System.out.println(record);
+            System.out.println("\t\t" + record);
         }
-    }
-
-    public static void encrypt() {
-
     }
 }

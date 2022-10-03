@@ -14,9 +14,9 @@ public class Logger {
         // String file  = args[1];
 
         File file = new File("textfile.txt");
-        file.createNewFile();
+        file.createNewFile(); // If file does not exist, creates a new one
 
-        Path path = Paths.get("textfile.txt");
+        Path path = Paths.get("./textfile.txt");
 
 //        System.out.println("Logger");
         String inp;
@@ -40,7 +40,8 @@ public class Logger {
             currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
             Files.writeString(path, currentTime + " [STOP] Logging Stopped \n", StandardOpenOption.APPEND);
         } catch (Exception ex) {
-            System.out.println("Error in Running Logger");
+            System.out.println("[INPUT] Error in Logger");
+            ex.printStackTrace();
         }
 
     }
