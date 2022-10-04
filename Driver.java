@@ -29,16 +29,16 @@ public class Driver {
                         System.out.print("\tDo you want to use a string from history? (yes | no): ");
                         String hist = s.nextLine();
                         if (hist.equalsIgnoreCase("no")) {
-                            System.out.print("\t\tEnter Password(KEY): ");
+                            System.out.print("\t\tEnter PassKey: ");
                             String tempPass = s.nextLine();
                             if (tempPass.length() > 0) {
                                 password = tempPass;
                                 history.add(password);
-                                System.out.println("\t\t\tPassword(KEY) Updated: " + password);
+                                System.out.println("\t\t\tPassKey Updated: " + password);
                                 toLogger.println("password " + password);
                                 toLogger.flush();
                             } else {
-                                System.out.println("\t\t\tInvalid Password(KEY)");
+                                System.out.println("\t\t\tInvalid PassKey");
                                 continue;
                             }
                         } else if (hist.equalsIgnoreCase("yes")) {
@@ -52,7 +52,7 @@ public class Driver {
                                     int choice = s.nextInt();
                                     if (choice>=0 && choice<history.size()) {
                                         password = history.get(choice);
-                                        System.out.println("\t\t\tPassword(KEY) Updated: " + password);
+                                        System.out.println("\t\t\tPassKey Updated: " + password);
                                         toLogger.println("password " + password);
                                         toLogger.flush();
                                     } else {
@@ -90,7 +90,7 @@ public class Driver {
                                 System.out.println("Failure in Encryption");
                             }
                         } else {
-                            System.out.println("Password(Key) not Set!");
+                            System.out.println("\tPassKey not Set!");
                         }
                     }
 
@@ -112,7 +112,7 @@ public class Driver {
                                 System.out.println("Failure in Decryption");
                             }
                         } else {
-                            System.out.println("Password(Key) not Set!");
+                            System.out.println("\tPassKey not Set!");
                         }
                     }
 
