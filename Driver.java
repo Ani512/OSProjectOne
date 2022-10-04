@@ -33,7 +33,6 @@ public class Driver {
                             String tempPass = s.nextLine();
                             if (tempPass.length() > 0) {
                                 password = tempPass;
-                                history.add(password);
                                 System.out.println("\t\t\tPassKey Updated: " + password);
                                 toLogger.println("password " + password);
                                 toLogger.flush();
@@ -73,7 +72,7 @@ public class Driver {
                     }
 
                     else if (inp.equalsIgnoreCase("encrypt") || inp.equalsIgnoreCase("2")) {
-                        if (history.size()>0) {
+                        if (password!=null && password.length()>0) {
                             Scanner s = new Scanner(System.in);
                             System.out.print("\tEnter string to Encrypt: ");
                             String valueToEncrypt = s.nextLine();
@@ -95,7 +94,7 @@ public class Driver {
                     }
 
                     else if (inp.equalsIgnoreCase("decrypt") || inp.equalsIgnoreCase("3")) {
-                        if (history.size()>0) {
+                        if (password!=null && password.length()>0) {
                             Scanner s = new Scanner(System.in);
                             System.out.print("\tEnter string to decrypt: ");
                             String valueToDecrypt = s.nextLine();

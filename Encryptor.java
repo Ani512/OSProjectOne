@@ -38,14 +38,14 @@ public class Encryptor {
 
     public static String encrypt(String value, String key) {
         try {
-            String encryptedValue = "";
+            StringBuilder encryptedValue = new StringBuilder();
             value = value.toUpperCase();
             for (int i = 0, j = 0; i < value.length(); i++) {
                 char letter = value.charAt(i);
-                encryptedValue += (char) (((letter - 65) + (key.charAt(j) - 65)) % 26 + 65);
+                encryptedValue.append((char) (((letter - 65) + (key.charAt(j) - 65)) % 26 + 'A'));
                 j = ++j % key.length();
             }
-            return encryptedValue;
+            return encryptedValue.toString();
         } catch (Exception ex) {
             System.out.println("failure ENCRYPTION_ERROR");
         }
@@ -55,14 +55,14 @@ public class Encryptor {
 
     public static String decrypt(String value, String key) {
         try {
-            String decryptedValue = "";
+            StringBuilder decryptedValue = new StringBuilder();
             value = value.toUpperCase();
             for (int i = 0, j = 0; i < value.length(); i++) {
                 char letter = value.charAt(i);
-                decryptedValue += (char)((letter - key.charAt(j) + 26) % 26 + 65);
+                decryptedValue.append((char) ((letter - key.charAt(j) + 26) % 26 + 'A'));
                 j = ++j % key.length();
             }
-            return decryptedValue;
+            return decryptedValue.toString();
         } catch (Exception ex) {
             System.out.println("failure DECRYPTION_ERROR");
         }
