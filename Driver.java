@@ -7,15 +7,14 @@ public class Driver {
     public static void main(String[] args) {
         System.out.println("Ani's Driver");
         List<String> history = new ArrayList<>();
-        List<String> passHistory = new ArrayList<>();
         String password = null;
         try {
             Process logger = Runtime.getRuntime().exec(new String[] {"java", "Logger.java"});
-            System.out.println("L: " + logger.pid());
+//            System.out.println("L: " + logger.pid());
             OutputStream loggerOut = logger.getOutputStream();
 
             Process encryptor = Runtime.getRuntime().exec(new String[] {"java", "Encryptor.java"});
-            System.out.println("E: " + encryptor.pid());
+//            System.out.println("E: " + encryptor.pid());
             OutputStream encryptorOut = encryptor.getOutputStream();
             InputStream encryptorIn = encryptor.getInputStream();
 
@@ -27,14 +26,14 @@ public class Driver {
                 while (!inp.equalsIgnoreCase("quit") && !inp.equalsIgnoreCase("6")) {
                     if (inp.equalsIgnoreCase("password") || inp.equalsIgnoreCase("1")) {
                         Scanner s = new Scanner(System.in);
-                        System.out.print("\tDo you want to use a Password(KEY) from history? (yes | no): ");
+                        System.out.print("\tDo you want to use a string from history? (yes | no): ");
                         String hist = s.nextLine();
                         if (hist.equalsIgnoreCase("no")) {
                             System.out.print("\t\tEnter Password(KEY): ");
                             String tempPass = s.nextLine();
                             if (tempPass.length() > 0) {
                                 password = tempPass;
-                                passHistory.add(password);
+                                history.add(password);
                                 System.out.println("\t\t\tPassword(KEY) Updated: " + password);
                                 toLogger.println("password " + password);
                                 toLogger.flush();
@@ -43,31 +42,36 @@ public class Driver {
                                 continue;
                             }
                         } else if (hist.equalsIgnoreCase("yes")) {
-                            if (passHistory.size()>0) {
-                                System.out.println("\t\tPrevious Passwords(KEYS) stored in history: ");
-                                for (int i=0 ; i<passHistory.size() ; i++) {
-                                    System.out.println("\t\t\t" + i + ": " + passHistory.get(i));
+                            if (history.size()>0) {
+                                System.out.println("\t\tHistory: ");
+                                for (int i=0 ; i<history.size() ; i++) {
+                                    System.out.println("\t\t\t" + i + ": " + history.get(i));
                                 }
                                 System.out.print("\t\t\t\tEnter Choice (numeric key of the choice): ");
-                                int choice = s.nextInt();
-                                if (choice>=0 && choice<passHistory.size()) {
-                                    password = passHistory.get(choice);
-                                    System.out.println("\t\t\tPassword(KEY) Updated: " + password);
-                                    toLogger.println("password " + password);
-                                    toLogger.flush();
+                                if (s.hasNextInt()) {
+                                    int choice = s.nextInt();
+                                    if (choice>=0 && choice<history.size()) {
+                                        password = history.get(choice);
+                                        System.out.println("\t\t\tPassword(KEY) Updated: " + password);
+                                        toLogger.println("password " + password);
+                                        toLogger.flush();
+                                    } else {
+                                        System.out.println("\t\t\t\tInvalid Choice");
+                                        continue;
+                                    }
                                 } else {
-                                    System.out.println("\t\t\t\tInvalid Password(KEY)");
+                                    System.out.println("\t\t\tEnter the numeric key of the choice");
                                     continue;
                                 }
                             } else {
-                                System.out.println("\t\tNo Passwords(Keys) saved in history :(");
+                                System.out.println("\t\tHistory is empty :(");
                                 continue;
                             }
                         }
                     }
 
                     else if (inp.equalsIgnoreCase("encrypt") || inp.equalsIgnoreCase("2")) {
-                        if (passHistory.size()>0) {
+                        if (history.size()>0) {
                             Scanner s = new Scanner(System.in);
                             System.out.print("\tEnter string to Encrypt: ");
                             String valueToEncrypt = s.nextLine();
@@ -76,6 +80,7 @@ public class Driver {
 
                             String[] resultE = fromEncryptor.nextLine().split(" ");
                             if (resultE[0].equalsIgnoreCase("success")) {
+                                history.add(valueToEncrypt);
                                 System.out.println("\t\tEncrypted Value: " + resultE[1]);
                                 toLogger.println("encrypt " + resultE[1]);
                                 toLogger.flush();
@@ -88,7 +93,7 @@ public class Driver {
                     }
 
                     else if (inp.equalsIgnoreCase("decrypt") || inp.equalsIgnoreCase("3")) {
-                        if (passHistory.size()>0) {
+                        if (history.size()>0) {
                             Scanner s = new Scanner(System.in);
                             System.out.print("\tEnter string to decrypt: ");
                             String valueToDecrypt = s.nextLine();
@@ -97,6 +102,7 @@ public class Driver {
 
                             String[] resultD = fromEncryptor.nextLine().split(" ");
                             if (resultD[0].equalsIgnoreCase("success")) {
+                                history.add(valueToDecrypt);
                                 System.out.println("\t\tDecrypted Value: " + resultD[1]);
                                 toLogger.println("decrypt " + resultD[1]);
                                 toLogger.flush();

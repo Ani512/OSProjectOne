@@ -45,8 +45,7 @@ public class Logger {
             currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
             Files.writeString(path, currentTime + " [STOP] Logging Stopped \n", StandardOpenOption.APPEND);
         } catch (Exception ex) {
-            System.out.println("[INPUT] Error in Logger");
-            ex.printStackTrace();
+            System.out.println("failure INPUT_ERROR");
         }
 
     }

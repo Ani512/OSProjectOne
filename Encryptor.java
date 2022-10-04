@@ -32,8 +32,7 @@ public class Encryptor {
                 inp = s.nextLine();
             }
         } catch (Exception ex) {
-            System.out.println("[INPUT Error] in Encryptor");
-            ex.printStackTrace();
+            System.out.println("failure INPUT_ERROR");
         }
     }
 
