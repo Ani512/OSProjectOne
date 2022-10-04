@@ -11,14 +11,14 @@ public class Encryptor {
                 String[] inputs = inp.split(" ");
                 if (inputs.length == 3) {
                     if (inputs[0].equalsIgnoreCase("encrypt")) {
-                        String e = encrypt(inputs[1], inputs[2]);
+                        String e = encrypt(inputs[1].toUpperCase(), inputs[2]);
                         if (e!=null) {
                             System.out.println("success " + e);
                         } else {
                             System.out.println("failure ENCRYPTION_ERROR");
                         }
                     } else if (inputs[0].equalsIgnoreCase("decrypt")) {
-                        String e = decrypt(inputs[1], inputs[2]);
+                        String e = decrypt(inputs[1].toUpperCase(), inputs[2]);
                         if (e!=null) {
                             System.out.println("success " + e);
                         } else {

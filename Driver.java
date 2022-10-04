@@ -84,7 +84,7 @@ public class Driver {
                             if (resultE[0].equalsIgnoreCase("success")) {
                                 history.add(valueToEncrypt);
                                 System.out.println("\t\tEncrypted Value: " + resultE[1]);
-                                toLogger.println("encrypt " + resultE[1]);
+                                toLogger.println("encrypt " + valueToEncrypt);
                                 toLogger.flush();
                             } else if (resultE[0].equalsIgnoreCase("failure")) {
                                 System.out.println("Failure in Encryption");
@@ -106,7 +106,7 @@ public class Driver {
                             if (resultD[0].equalsIgnoreCase("success")) {
                                 history.add(valueToDecrypt);
                                 System.out.println("\t\tDecrypted Value: " + resultD[1]);
-                                toLogger.println("decrypt " + resultD[1]);
+                                toLogger.println("decrypt " + valueToDecrypt);
                                 toLogger.flush();
                             } else if (resultD[0].equalsIgnoreCase("failure")) {
                                 System.out.println("Failure in Decryption");
@@ -125,7 +125,7 @@ public class Driver {
                     }
 
                     else if (inp.equalsIgnoreCase("help") || inp.equalsIgnoreCase("5")) {
-                        System.out.println("Enter a command from the list of commands below. You may enter the number associated with the command or the actual command itself");
+                        System.out.print("Enter a command from the list of commands below. You may enter the number associated with the command or the actual command itself");
                         // DO NOTHING AND GO TAKE INPUT AGAIN
                     }
 

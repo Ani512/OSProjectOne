@@ -19,20 +19,20 @@ public class Logger {
             String inp = s.nextLine();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+            String currentTime = LocalDateTime.now().format(formatter);
             Files.writeString(path, currentTime + " [START] Logging Started \n", StandardOpenOption.APPEND);
 
             while(!inp.equalsIgnoreCase("loggerquit")) {
                 String[] inputs = inp.split(" ");
                 if (inputs.length == 2) {
                     if (inputs[0].equalsIgnoreCase("password")) {
-                        currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                        currentTime = LocalDateTime.now().format(formatter);
                         Files.writeString(path, currentTime + " [PASSWORD] passkey updated - " + inputs[1] + "\n", StandardOpenOption.APPEND);
                     } else if (inputs[0].equalsIgnoreCase("encrypt")) {
-                        currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                        currentTime = LocalDateTime.now().format(formatter);
                         Files.writeString(path, currentTime + " [ENCRYPT] string encrypted - " + inputs[1] + "\n", StandardOpenOption.APPEND);
                     } else if (inputs[0].equalsIgnoreCase("decrypt")) {
-                        currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                        currentTime = LocalDateTime.now().format(formatter);
                         Files.writeString(path, currentTime + " [DECRYPT] string decrypted - " + inputs[1] + "\n", StandardOpenOption.APPEND);
                     }
                 } else {
@@ -42,7 +42,7 @@ public class Logger {
                 inp = s.nextLine();
             }
 
-            currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+            currentTime = LocalDateTime.now().format(formatter);
             Files.writeString(path, currentTime + " [STOP] Logging Stopped \n", StandardOpenOption.APPEND);
         } catch (Exception ex) {
             System.out.println("failure INPUT_ERROR");
