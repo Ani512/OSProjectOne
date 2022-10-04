@@ -36,7 +36,7 @@ public class Driver {
                                 password = tempPass;
                                 passHistory.add(password);
                                 System.out.println("\t\t\tPassword(KEY) Updated: " + password);
-                                toLogger.println("password");
+                                toLogger.println("password " + password);
                                 toLogger.flush();
                             } else {
                                 System.out.println("\t\t\tInvalid Password(KEY)");
@@ -53,7 +53,7 @@ public class Driver {
                                 if (choice>=0 && choice<passHistory.size()) {
                                     password = passHistory.get(choice);
                                     System.out.println("\t\t\tPassword(KEY) Updated: " + password);
-                                    toLogger.println("password");
+                                    toLogger.println("password " + password);
                                     toLogger.flush();
                                 } else {
                                     System.out.println("\t\t\t\tInvalid Password(KEY)");
@@ -77,7 +77,7 @@ public class Driver {
                             String[] resultE = fromEncryptor.nextLine().split(" ");
                             if (resultE[0].equalsIgnoreCase("success")) {
                                 System.out.println("\t\tEncrypted Value: " + resultE[1]);
-                                toLogger.println("encrypt");
+                                toLogger.println("encrypt " + resultE[1]);
                                 toLogger.flush();
                             } else if (resultE[0].equalsIgnoreCase("failure")) {
                                 System.out.println("Failure in Encryption");
@@ -98,7 +98,7 @@ public class Driver {
                             String[] resultD = fromEncryptor.nextLine().split(" ");
                             if (resultD[0].equalsIgnoreCase("success")) {
                                 System.out.println("\t\tDecrypted Value: " + resultD[1]);
-                                toLogger.println("decrypt");
+                                toLogger.println("decrypt " + resultD[1]);
                                 toLogger.flush();
                             } else if (resultD[0].equalsIgnoreCase("failure")) {
                                 System.out.println("Failure in Decryption");
@@ -114,8 +114,6 @@ public class Driver {
                         } else {
                             System.out.println("\tHistory is Empty :( ");
                         }
-                        toLogger.println("history");
-                        toLogger.flush();
                     }
 
                     else if (inp.equalsIgnoreCase("help") || inp.equalsIgnoreCase("5")) {

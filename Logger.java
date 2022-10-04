@@ -23,17 +23,21 @@ public class Logger {
             Files.writeString(path, currentTime + " [START] Logging Started \n", StandardOpenOption.APPEND);
 
             while(!inp.equalsIgnoreCase("loggerquit")) {
-//                String[] inputs = inp.split(" ");
-                 if (inp.equalsIgnoreCase("password")) {
-                    currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
-                    Files.writeString(path, currentTime + " [PASSWORD] passkey updated \n", StandardOpenOption.APPEND);
-                } else if (inp.equalsIgnoreCase("encrypt")) {
-                    currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
-                    Files.writeString(path, currentTime + " [ENCRYPT] string encrypted \n", StandardOpenOption.APPEND);
-                } else if (inp.equalsIgnoreCase("decrypt")) {
-                     currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
-                     Files.writeString(path, currentTime + " [DECRYPT] string decrypted \n", StandardOpenOption.APPEND);
-                 }
+                String[] inputs = inp.split(" ");
+                if (inputs.length == 2) {
+                    if (inputs[0].equalsIgnoreCase("password")) {
+                        currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                        Files.writeString(path, currentTime + " [PASSWORD] passkey updated - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                    } else if (inputs[0].equalsIgnoreCase("encrypt")) {
+                        currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                        Files.writeString(path, currentTime + " [ENCRYPT] string encrypted - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                    } else if (inputs[0].equalsIgnoreCase("decrypt")) {
+                        currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                        Files.writeString(path, currentTime + " [DECRYPT] string decrypted - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                    }
+                } else {
+                    System.out.println("failure INVALID_DRIVER_INP");
+                }
 
                 inp = s.nextLine();
             }
@@ -47,5 +51,3 @@ public class Logger {
 
     }
 }
-
-//+ inputs[1] + "\n"
