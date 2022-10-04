@@ -8,18 +8,21 @@ public class Driver {
         System.out.println("Ani's Driver");
         List<String> history = new ArrayList<>();
         List<String> passHistory = new ArrayList<>();
-        String password;
+        String password = null;
         try {
             Process logger = Runtime.getRuntime().exec(new String[] {"java", "Logger.java"});
-//            System.out.println(logger.pid());
+            System.out.println("L: " + logger.pid());
             OutputStream loggerOut = logger.getOutputStream();
 
             Process encryptor = Runtime.getRuntime().exec(new String[] {"java", "Encryptor.java"});
-//            System.out.println(encryptor.pid());
+            System.out.println("E: " + encryptor.pid());
             OutputStream encryptorOut = encryptor.getOutputStream();
+            InputStream encryptorIn = encryptor.getInputStream();
 
             try (PrintStream toLogger = new PrintStream(loggerOut)) {
                 PrintStream toEncryptor = new PrintStream(encryptorOut);
+                Scanner fromEncryptor = new Scanner(encryptorIn);
+
                 String inp = commands();
                 while (!inp.equalsIgnoreCase("quit") && !inp.equalsIgnoreCase("6")) {
                     if (inp.equalsIgnoreCase("password") || inp.equalsIgnoreCase("1")) {
@@ -64,8 +67,45 @@ public class Driver {
                     }
 
                     else if (inp.equalsIgnoreCase("encrypt") || inp.equalsIgnoreCase("2")) {
-                        toEncryptor.println("encrypt");
-                        toEncryptor.flush();
+                        if (passHistory.size()>0) {
+                            Scanner s = new Scanner(System.in);
+                            System.out.print("\tEnter string to Encrypt: ");
+                            String valueToEncrypt = s.nextLine();
+                            toEncryptor.println("encrypt " + valueToEncrypt + " " + password);
+                            toEncryptor.flush();
+
+                            String[] resultE = fromEncryptor.nextLine().split(" ");
+                            if (resultE[0].equalsIgnoreCase("success")) {
+                                System.out.println("\t\tEncrypted Value: " + resultE[1]);
+                                toLogger.println("encrypt");
+                                toLogger.flush();
+                            } else if (resultE[0].equalsIgnoreCase("failure")) {
+                                System.out.println("Failure in Encryption");
+                            }
+                        } else {
+                            System.out.println("Password(Key) not Set!");
+                        }
+                    }
+
+                    else if (inp.equalsIgnoreCase("decrypt") || inp.equalsIgnoreCase("3")) {
+                        if (passHistory.size()>0) {
+                            Scanner s = new Scanner(System.in);
+                            System.out.print("\tEnter string to decrypt: ");
+                            String valueToDecrypt = s.nextLine();
+                            toEncryptor.println("decrypt " + valueToDecrypt + " " + password);
+                            toEncryptor.flush();
+
+                            String[] resultD = fromEncryptor.nextLine().split(" ");
+                            if (resultD[0].equalsIgnoreCase("success")) {
+                                System.out.println("\t\tDecrypted Value: " + resultD[1]);
+                                toLogger.println("decrypt");
+                                toLogger.flush();
+                            } else if (resultD[0].equalsIgnoreCase("failure")) {
+                                System.out.println("Failure in Decryption");
+                            }
+                        } else {
+                            System.out.println("Password(Key) not Set!");
+                        }
                     }
 
                     else if (inp.equalsIgnoreCase("history") || inp.equalsIgnoreCase("4")) {

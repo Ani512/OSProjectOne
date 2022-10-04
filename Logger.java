@@ -10,33 +10,34 @@ import java.time.LocalDateTime;
 
 public class Logger {
     public static void main(String[] args) throws IOException {
-
-        // String file  = args[1];
-
+//        System.out.println("Logger");
         File file = new File("textfile.txt");
         file.createNewFile(); // If file does not exist, creates a new one
-
         Path path = Paths.get("./textfile.txt");
 
-//        System.out.println("Logger");
-        String inp;
         try (Scanner s = new Scanner(System.in)) {
-            inp = s.nextLine();
+            String inp = s.nextLine();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
             Files.writeString(path, currentTime + " [START] Logging Started \n", StandardOpenOption.APPEND);
 
             while(!inp.equalsIgnoreCase("loggerquit")) {
-                if (inp.equalsIgnoreCase("history")) {
-                    currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
-                    Files.writeString(path, currentTime + " viewed history \n", StandardOpenOption.APPEND);
-                } else if (inp.equalsIgnoreCase("password")) {
+//                String[] inputs = inp.split(" ");
+                 if (inp.equalsIgnoreCase("password")) {
                     currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
                     Files.writeString(path, currentTime + " [PASSWORD] passkey updated \n", StandardOpenOption.APPEND);
-                }
+                } else if (inp.equalsIgnoreCase("encrypt")) {
+                    currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                    Files.writeString(path, currentTime + " [ENCRYPT] string encrypted \n", StandardOpenOption.APPEND);
+                } else if (inp.equalsIgnoreCase("decrypt")) {
+                     currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
+                     Files.writeString(path, currentTime + " [DECRYPT] string decrypted \n", StandardOpenOption.APPEND);
+                 }
+
                 inp = s.nextLine();
             }
+
             currentTime = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter);
             Files.writeString(path, currentTime + " [STOP] Logging Stopped \n", StandardOpenOption.APPEND);
         } catch (Exception ex) {
@@ -46,3 +47,5 @@ public class Logger {
 
     }
 }
+
+//+ inputs[1] + "\n"
