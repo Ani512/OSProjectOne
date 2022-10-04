@@ -67,6 +67,8 @@ public class Driver {
                                 System.out.println("\t\tHistory is empty :(");
                                 continue;
                             }
+                        } else {
+                            continue;
                         }
                     }
 
