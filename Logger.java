@@ -34,9 +34,13 @@ public class Logger {
                     } else if (inputs[0].equalsIgnoreCase("decrypt")) {
                         currentTime = LocalDateTime.now().format(formatter);
                         Files.writeString(path, currentTime + " [DECRYPT] string decrypted - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                    } else {
+                        currentTime = LocalDateTime.now().format(formatter);
+                        Files.writeString(path, currentTime + " [FAILURE] Unexpected Input\n", StandardOpenOption.APPEND);
                     }
                 } else {
-                    System.out.println("failure INVALID_DRIVER_INP");
+                    currentTime = LocalDateTime.now().format(formatter);
+                    Files.writeString(path, currentTime + " [FAILURE] Error in Logging\n", StandardOpenOption.APPEND);
                 }
 
                 inp = s.nextLine();

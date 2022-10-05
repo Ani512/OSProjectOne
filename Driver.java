@@ -85,14 +85,14 @@ public class Driver {
 
                                 String[] resultE = fromEncryptor.nextLine().split(" ");
                                 if (resultE[0].equalsIgnoreCase("success")) {
-                                    history.add(valueToEncrypt);
-                                    history.add(resultE[1]);
+                                    if (!history.contains(valueToEncrypt)) { history.add(valueToEncrypt); }
+                                    if (!history.contains(resultE[1])) { history.add(resultE[1]); }
                                     System.out.println("\t\t\tEncrypted Value: " + resultE[1]);
                                     toLogger.println("encrypt " + valueToEncrypt);
                                     toLogger.flush();
                                 } else if (resultE[0].equalsIgnoreCase("failure")) {
                                     System.out.println("\t\t\tFailure in Encryption");
-                                    toLogger.println("encrypt failure");
+                                    toLogger.println("encrypt [FAILURE]");
                                     toLogger.flush();
                                 } else {
                                     System.out.println("Something Wrong Happened");
@@ -120,7 +120,7 @@ public class Driver {
                                                 toLogger.flush();
                                             } else if (resultE[0].equalsIgnoreCase("failure")) {
                                                 System.out.println("\t\t\tFailure in Encryption");
-                                                toLogger.println("encrypt failure");
+                                                toLogger.println("encrypt [FAILURE]");
                                                 toLogger.flush();
                                             } else {
                                                 System.out.println("Something Wrong Happened");
@@ -160,14 +160,14 @@ public class Driver {
 
                                 String[] resultD = fromEncryptor.nextLine().split(" ");
                                 if (resultD[0].equalsIgnoreCase("success")) {
-                                    history.add(valueToDecrypt);
-                                    history.add(resultD[1]);
+                                    if (!history.contains(valueToDecrypt)) { history.add(valueToDecrypt); }
+                                    if (!history.contains(resultD[1])) { history.add(resultD[1]); }
                                     System.out.println("\t\t\tDecrypted Value: " + resultD[1]);
                                     toLogger.println("decrypt " + valueToDecrypt);
                                     toLogger.flush();
                                 } else if (resultD[0].equalsIgnoreCase("failure")) {
                                     System.out.println("\t\t\tFailure in Decryption");
-                                    toLogger.println("decrypt failure");
+                                    toLogger.println("decrypt [FAILURE]");
                                     toLogger.flush();
                                 } else {
                                     System.out.println("Something Wrong Happened");
@@ -195,7 +195,7 @@ public class Driver {
                                                 toLogger.flush();
                                             } else if (resultD[0].equalsIgnoreCase("failure")) {
                                                 System.out.println("\t\t\tFailure in Decryption");
-                                                toLogger.println("decrypt failure");
+                                                toLogger.println("decrypt [FAILURE]");
                                                 toLogger.flush();
                                             } else {
                                                 System.out.println("Something Wrong Happened");
