@@ -92,7 +92,7 @@ public class Driver {
                                     toLogger.flush();
                                 } else if (resultE[0].equalsIgnoreCase("failure")) {
                                     System.out.println("\t\t\tFailure in Encryption");
-                                    toLogger.println("encrypt [FAILURE]");
+                                    toLogger.println("encrypt " + resultE[1]);
                                     toLogger.flush();
                                 } else {
                                     System.out.println("Something Wrong Happened");
@@ -120,7 +120,7 @@ public class Driver {
                                                 toLogger.flush();
                                             } else if (resultE[0].equalsIgnoreCase("failure")) {
                                                 System.out.println("\t\t\tFailure in Encryption");
-                                                toLogger.println("encrypt [FAILURE]");
+                                                toLogger.println("encrypt " + resultE[1]);
                                                 toLogger.flush();
                                             } else {
                                                 System.out.println("Something Wrong Happened");
@@ -167,7 +167,7 @@ public class Driver {
                                     toLogger.flush();
                                 } else if (resultD[0].equalsIgnoreCase("failure")) {
                                     System.out.println("\t\t\tFailure in Decryption");
-                                    toLogger.println("decrypt [FAILURE]");
+                                    toLogger.println("decrypt " + resultD[1]);
                                     toLogger.flush();
                                 } else {
                                     System.out.println("Something Wrong Happened");
@@ -195,7 +195,7 @@ public class Driver {
                                                 toLogger.flush();
                                             } else if (resultD[0].equalsIgnoreCase("failure")) {
                                                 System.out.println("\t\t\tFailure in Decryption");
-                                                toLogger.println("decrypt [FAILURE]");
+                                                toLogger.println("decrypt " + resultD[1]);
                                                 toLogger.flush();
                                             } else {
                                                 System.out.println("Something Wrong Happened");

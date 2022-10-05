@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 public class Logger {
     public static void main(String[] args) throws IOException {
 //        System.out.println("Logger");
-        File file = new File("textfile.txt");
+        File file = new File("logfile.txt");
         file.createNewFile(); // If file does not exist, creates a new one
-        Path path = Paths.get("./textfile.txt");
+        Path path = Paths.get("./logfile.txt");
 
         try (Scanner s = new Scanner(System.in)) {
             String inp = s.nextLine();

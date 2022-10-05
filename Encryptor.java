@@ -26,7 +26,7 @@ public class Encryptor {
                         }
                     }
                 } else {
-                    System.out.println("failure INVALID_DRIVER_INP");
+                    System.out.println("failure INVALID_DRIVER_INPUT");
                 }
 
                 inp = s.nextLine();
