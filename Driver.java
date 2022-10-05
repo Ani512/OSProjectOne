@@ -67,26 +67,80 @@ public class Driver {
                                 continue;
                             }
                         } else {
+                            System.out.println("\t\tInvalid Choice");
                             continue;
                         }
                     }
 
                     else if (inp.equalsIgnoreCase("encrypt") || inp.equalsIgnoreCase("2")) {
-                        if (password!=null && password.length()>0) {
+                        if (password != null && password.length() > 0) {
                             Scanner s = new Scanner(System.in);
-                            System.out.print("\tEnter string to Encrypt: ");
-                            String valueToEncrypt = s.nextLine();
-                            toEncryptor.println("encrypt " + valueToEncrypt + " " + password);
-                            toEncryptor.flush();
+                            System.out.print("\tDo you want to use a string from history? (yes | no): ");
+                            String hist = s.nextLine();
+                            if (hist.equalsIgnoreCase("no")) {
+                                System.out.print("\t\tEnter string to Encrypt: ");
+                                String valueToEncrypt = s.nextLine();
+                                toEncryptor.println("encrypt " + valueToEncrypt + " " + password);
+                                toEncryptor.flush();
 
-                            String[] resultE = fromEncryptor.nextLine().split(" ");
-                            if (resultE[0].equalsIgnoreCase("success")) {
-                                history.add(valueToEncrypt);
-                                System.out.println("\t\tEncrypted Value: " + resultE[1]);
-                                toLogger.println("encrypt " + valueToEncrypt);
-                                toLogger.flush();
-                            } else if (resultE[0].equalsIgnoreCase("failure")) {
-                                System.out.println("Failure in Encryption");
+                                String[] resultE = fromEncryptor.nextLine().split(" ");
+                                if (resultE[0].equalsIgnoreCase("success")) {
+                                    history.add(valueToEncrypt);
+                                    history.add(resultE[1]);
+                                    System.out.println("\t\t\tEncrypted Value: " + resultE[1]);
+                                    toLogger.println("encrypt " + valueToEncrypt);
+                                    toLogger.flush();
+                                } else if (resultE[0].equalsIgnoreCase("failure")) {
+                                    System.out.println("\t\t\tFailure in Encryption");
+                                    toLogger.println("encrypt failure");
+                                    toLogger.flush();
+                                } else {
+                                    System.out.println("Something Wrong Happened");
+                                    continue;
+                                }
+                            } else if (hist.equalsIgnoreCase("yes")) {
+                                if (history.size() > 0) {
+                                    System.out.println("\t\tHistory: ");
+                                    for (int i = 0; i < history.size(); i++) {
+                                        System.out.println("\t\t\t" + i + ": " + history.get(i));
+                                    }
+                                    System.out.print("\t\t\t\tEnter Choice (numeric key of the choice): ");
+                                    if (s.hasNextInt()) {
+                                        int choice = s.nextInt();
+                                        if (choice >= 0 && choice < history.size()) {
+                                            String valueToEncrypt = history.get(choice);
+                                            toEncryptor.println("encrypt " + valueToEncrypt + " " + password);
+                                            toEncryptor.flush();
+
+                                            String[] resultE = fromEncryptor.nextLine().split(" ");
+                                            if (resultE[0].equalsIgnoreCase("success")) {
+                                                System.out.println("\t\t\tEncrypted Value: " + resultE[1]);
+                                                if (!history.contains(resultE[1])) { history.add(resultE[1]); }
+                                                toLogger.println("encrypt " + valueToEncrypt);
+                                                toLogger.flush();
+                                            } else if (resultE[0].equalsIgnoreCase("failure")) {
+                                                System.out.println("\t\t\tFailure in Encryption");
+                                                toLogger.println("encrypt failure");
+                                                toLogger.flush();
+                                            } else {
+                                                System.out.println("Something Wrong Happened");
+                                                continue;
+                                            }
+                                        } else {
+                                            System.out.println("\t\t\t\tInvalid Choice");
+                                            continue;
+                                        }
+                                    } else {
+                                        System.out.println("\t\t\tEnter the numeric key of the choice");
+                                        continue;
+                                    }
+                                } else {
+                                    System.out.println("\t\tHistory is empty :(");
+                                    continue;
+                                }
+                            } else {
+                                System.out.println("\tInvalid choice!");
+                                continue;
                             }
                         } else {
                             System.out.println("\tPassKey not Set!");
@@ -94,21 +148,74 @@ public class Driver {
                     }
 
                     else if (inp.equalsIgnoreCase("decrypt") || inp.equalsIgnoreCase("3")) {
-                        if (password!=null && password.length()>0) {
+                        if (password != null && password.length() > 0) {
                             Scanner s = new Scanner(System.in);
-                            System.out.print("\tEnter string to decrypt: ");
-                            String valueToDecrypt = s.nextLine();
-                            toEncryptor.println("decrypt " + valueToDecrypt + " " + password);
-                            toEncryptor.flush();
+                            System.out.print("\tDo you want to use a string from history? (yes | no): ");
+                            String hist = s.nextLine();
+                            if (hist.equalsIgnoreCase("no")) {
+                                System.out.print("\t\tEnter string to Decrypt: ");
+                                String valueToDecrypt = s.nextLine();
+                                toEncryptor.println("decrypt " + valueToDecrypt + " " + password);
+                                toEncryptor.flush();
 
-                            String[] resultD = fromEncryptor.nextLine().split(" ");
-                            if (resultD[0].equalsIgnoreCase("success")) {
-                                history.add(valueToDecrypt);
-                                System.out.println("\t\tDecrypted Value: " + resultD[1]);
-                                toLogger.println("decrypt " + valueToDecrypt);
-                                toLogger.flush();
-                            } else if (resultD[0].equalsIgnoreCase("failure")) {
-                                System.out.println("Failure in Decryption");
+                                String[] resultD = fromEncryptor.nextLine().split(" ");
+                                if (resultD[0].equalsIgnoreCase("success")) {
+                                    history.add(valueToDecrypt);
+                                    history.add(resultD[1]);
+                                    System.out.println("\t\t\tDecrypted Value: " + resultD[1]);
+                                    toLogger.println("decrypt " + valueToDecrypt);
+                                    toLogger.flush();
+                                } else if (resultD[0].equalsIgnoreCase("failure")) {
+                                    System.out.println("\t\t\tFailure in Decryption");
+                                    toLogger.println("decrypt failure");
+                                    toLogger.flush();
+                                } else {
+                                    System.out.println("Something Wrong Happened");
+                                    continue;
+                                }
+                            } else if (hist.equalsIgnoreCase("yes")) {
+                                if (history.size() > 0) {
+                                    System.out.println("\t\tHistory: ");
+                                    for (int i = 0; i < history.size(); i++) {
+                                        System.out.println("\t\t\t" + i + ": " + history.get(i));
+                                    }
+                                    System.out.print("\t\t\t\tEnter Choice (numeric key of the choice): ");
+                                    if (s.hasNextInt()) {
+                                        int choice = s.nextInt();
+                                        if (choice >= 0 && choice < history.size()) {
+                                            String valueToDecrypt = history.get(choice);
+                                            toEncryptor.println("decrypt " + valueToDecrypt + " " + password);
+                                            toEncryptor.flush();
+
+                                            String[] resultD = fromEncryptor.nextLine().split(" ");
+                                            if (resultD[0].equalsIgnoreCase("success")) {
+                                                System.out.println("\t\t\tDecrypted Value: " + resultD[1]);
+                                                if (!history.contains(resultD[1])) { history.add(resultD[1]); }
+                                                toLogger.println("decrypt " + valueToDecrypt);
+                                                toLogger.flush();
+                                            } else if (resultD[0].equalsIgnoreCase("failure")) {
+                                                System.out.println("\t\t\tFailure in Decryption");
+                                                toLogger.println("decrypt failure");
+                                                toLogger.flush();
+                                            } else {
+                                                System.out.println("Something Wrong Happened");
+                                                continue;
+                                            }
+                                        } else {
+                                            System.out.println("\t\t\t\tInvalid Choice");
+                                            continue;
+                                        }
+                                    } else {
+                                        System.out.println("\t\t\tEnter the numeric key of the choice");
+                                        continue;
+                                    }
+                                } else {
+                                    System.out.println("\t\tHistory is empty :(");
+                                    continue;
+                                }
+                            } else {
+                                System.out.println("\tInvalid choice!");
+                                continue;
                             }
                         } else {
                             System.out.println("\tPassKey not Set!");
