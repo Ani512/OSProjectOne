@@ -13,14 +13,14 @@ public class Encryptor {
                 // The TWO Inputs are: 1. type of input 2: value to use
                 if (inputs.length == 2) {
                     if (inputs[0].equalsIgnoreCase("encrypt") && passKey.length()>0) {
-                        String e = encrypt(inputs[1].toUpperCase(), passKey);
+                        String e = encrypt(inputs[1], passKey);
                         if (e!=null) {
                             System.out.println("success " + e);
                         } else {
                             System.out.println("failure ENCRYPTION_ERROR");
                         }
                     } else if (inputs[0].equalsIgnoreCase("decrypt") && passKey.length()>0) {
-                        String e = decrypt(inputs[1].toUpperCase(), passKey);
+                        String e = decrypt(inputs[1], passKey);
                         if (e!=null) {
                             System.out.println("success " + e);
                         } else {

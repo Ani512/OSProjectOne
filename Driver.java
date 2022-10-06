@@ -11,12 +11,12 @@ public class Driver {
         try {
             // Creating a new process called logger
             Process logger = Runtime.getRuntime().exec(new String[] {"java", "Logger.java"});
-//            System.out.println("L: " + logger.pid());
+            System.out.println("L: " + logger.pid());
             OutputStream loggerOut = logger.getOutputStream();
 
             // Creating a new process called encryptor
             Process encryptor = Runtime.getRuntime().exec(new String[] {"java", "Encryptor.java"});
-//            System.out.println("E: " + encryptor.pid());
+            System.out.println("E: " + encryptor.pid());
             OutputStream encryptorOut = encryptor.getOutputStream();
             InputStream encryptorIn = encryptor.getInputStream();
 
@@ -110,7 +110,7 @@ public class Driver {
                             String hist = s.nextLine();
                             if (hist.equalsIgnoreCase("no")) {
                                 System.out.print("\t\tEnter string to Encrypt: ");
-                                String valueToEncrypt = s.nextLine();
+                                String valueToEncrypt = s.nextLine().toUpperCase();
                                 toEncryptor.println("encrypt " + valueToEncrypt);
                                 toEncryptor.flush();
 
@@ -186,7 +186,7 @@ public class Driver {
                             String hist = s.nextLine();
                             if (hist.equalsIgnoreCase("no")) {
                                 System.out.print("\t\tEnter string to Decrypt: ");
-                                String valueToDecrypt = s.nextLine();
+                                String valueToDecrypt = s.nextLine().toUpperCase();
                                 toEncryptor.println("decrypt " + valueToDecrypt);
                                 toEncryptor.flush();
 
@@ -280,13 +280,15 @@ public class Driver {
                 toLogger.println("loggerquit");
                 toLogger.flush();
             }
-            logger.waitFor();
+//            logger.waitFor();
+//            encryptor.waitFor();
 
         } catch(IOException ex) {
             System.out.println("Unable to run Logger");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
+//        catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     // function to take user input
