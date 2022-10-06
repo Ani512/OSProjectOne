@@ -120,6 +120,7 @@ public class Driver {
                                     if (!history.contains(resultE[1])) { history.add(resultE[1]); }
                                     System.out.println("\t\t\tEncrypted Value: " + resultE[1]);
                                     toLogger.println("encrypt " + valueToEncrypt);
+                                    toLogger.println("result " + resultE[1]);
                                     toLogger.flush();
                                 } else if (resultE[0].equalsIgnoreCase("failure")) {
                                     System.out.println("\t\t\tFailure in Encryption");
@@ -148,6 +149,7 @@ public class Driver {
                                                 System.out.println("\t\t\tEncrypted Value: " + resultE[1]);
                                                 if (!history.contains(resultE[1])) { history.add(resultE[1]); }
                                                 toLogger.println("encrypt " + valueToEncrypt);
+                                                toLogger.println("result " + resultE[1]);
                                                 toLogger.flush();
                                             } else if (resultE[0].equalsIgnoreCase("failure")) {
                                                 System.out.println("\t\t\tFailure in Encryption");
@@ -196,6 +198,7 @@ public class Driver {
                                     if (!history.contains(resultD[1])) { history.add(resultD[1]); }
                                     System.out.println("\t\t\tDecrypted Value: " + resultD[1]);
                                     toLogger.println("decrypt " + valueToDecrypt);
+                                    toLogger.println("result " + resultD[1]);
                                     toLogger.flush();
                                 } else if (resultD[0].equalsIgnoreCase("failure")) {
                                     System.out.println("\t\t\tFailure in Decryption");
@@ -224,6 +227,7 @@ public class Driver {
                                                 System.out.println("\t\t\tDecrypted Value: " + resultD[1]);
                                                 if (!history.contains(resultD[1])) { history.add(resultD[1]); }
                                                 toLogger.println("decrypt " + valueToDecrypt);
+                                                toLogger.println("result " + resultD[1]);
                                                 toLogger.flush();
                                             } else if (resultD[0].equalsIgnoreCase("failure")) {
                                                 System.out.println("\t\t\tFailure in Decryption");

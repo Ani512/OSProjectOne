@@ -34,6 +34,9 @@ public class Logger {
                     } else if (inputs[0].equalsIgnoreCase("decrypt")) {
                         currentTime = LocalDateTime.now().format(formatter);
                         Files.writeString(path, currentTime + " [DECRYPT] string - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                    } else if (inputs[0].equalsIgnoreCase("result")) {
+                        currentTime = LocalDateTime.now().format(formatter);
+                        Files.writeString(path, currentTime + " [RESULT] - " + inputs[1] + "\n", StandardOpenOption.APPEND);
                     } else {
                         currentTime = LocalDateTime.now().format(formatter);
                         Files.writeString(path, currentTime + " [FAILURE] Unexpected Input\n", StandardOpenOption.APPEND);
