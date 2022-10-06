@@ -32,10 +32,23 @@ public class Driver {
                             System.out.print("\t\tEnter PassKey: ");
                             String tempPass = s.nextLine();
                             if (tempPass.length() > 0) {
-                                password = tempPass;
-                                System.out.println("\t\t\tPassKey Updated: " + password);
-                                toLogger.println("password " + password);
-                                toLogger.flush();
+                                toEncryptor.println("password " + tempPass);
+                                toEncryptor.flush();
+                                String[] resultP = fromEncryptor.nextLine().split(" ");
+                                if (resultP[0].equalsIgnoreCase("success")) {
+                                    password = tempPass.toUpperCase();
+                                    System.out.println("\t\t\tPassKey Updated: " + password);
+                                    toLogger.println("password " + password);
+                                    toLogger.flush();
+                                } else if (resultP[0].equalsIgnoreCase("failure")) {
+                                    password = "";
+                                    System.out.println("Error Setting PassKey");
+                                    toLogger.println("password ERROR_SETTING_PASSKEY");
+                                    toLogger.flush();
+                                } else {
+                                    password = "";
+                                    System.out.println("Error Setting PassKey");
+                                }
                             } else {
                                 System.out.println("\t\t\tInvalid PassKey");
                                 continue;
@@ -50,10 +63,22 @@ public class Driver {
                                 if (s.hasNextInt()) {
                                     int choice = s.nextInt();
                                     if (choice>=0 && choice<history.size()) {
-                                        password = history.get(choice);
-                                        System.out.println("\t\t\tPassKey Updated: " + password);
-                                        toLogger.println("password " + password);
-                                        toLogger.flush();
+                                        toEncryptor.println("password " + history.get(choice));
+                                        toEncryptor.flush();
+                                        String[] resultP = fromEncryptor.nextLine().split(" ");
+                                        if (resultP[0].equalsIgnoreCase("success")) {
+                                            password = history.get(choice).toUpperCase();
+                                            System.out.println("\t\t\tPassKey Updated: " + password);
+                                            toLogger.println("password " + password);
+                                            toLogger.flush();
+                                        } else if (resultP[0].equalsIgnoreCase("failure")) {
+                                            password = "";
+                                            toLogger.println("password ERROR_SETTING_PASSWORD");
+                                            toLogger.flush();
+                                        } else {
+                                            password = "";
+                                            System.out.println("Error In Password Logic");
+                                        }
                                     } else {
                                         System.out.println("\t\t\t\tInvalid Choice");
                                         continue;
@@ -80,7 +105,7 @@ public class Driver {
                             if (hist.equalsIgnoreCase("no")) {
                                 System.out.print("\t\tEnter string to Encrypt: ");
                                 String valueToEncrypt = s.nextLine();
-                                toEncryptor.println("encrypt " + valueToEncrypt + " " + password);
+                                toEncryptor.println("encrypt " + valueToEncrypt);
                                 toEncryptor.flush();
 
                                 String[] resultE = fromEncryptor.nextLine().split(" ");
@@ -109,7 +134,7 @@ public class Driver {
                                         int choice = s.nextInt();
                                         if (choice >= 0 && choice < history.size()) {
                                             String valueToEncrypt = history.get(choice);
-                                            toEncryptor.println("encrypt " + valueToEncrypt + " " + password);
+                                            toEncryptor.println("encrypt " + valueToEncrypt);
                                             toEncryptor.flush();
 
                                             String[] resultE = fromEncryptor.nextLine().split(" ");
@@ -155,7 +180,7 @@ public class Driver {
                             if (hist.equalsIgnoreCase("no")) {
                                 System.out.print("\t\tEnter string to Decrypt: ");
                                 String valueToDecrypt = s.nextLine();
-                                toEncryptor.println("decrypt " + valueToDecrypt + " " + password);
+                                toEncryptor.println("decrypt " + valueToDecrypt);
                                 toEncryptor.flush();
 
                                 String[] resultD = fromEncryptor.nextLine().split(" ");
@@ -184,7 +209,7 @@ public class Driver {
                                         int choice = s.nextInt();
                                         if (choice >= 0 && choice < history.size()) {
                                             String valueToDecrypt = history.get(choice);
-                                            toEncryptor.println("decrypt " + valueToDecrypt + " " + password);
+                                            toEncryptor.println("decrypt " + valueToDecrypt);
                                             toEncryptor.flush();
 
                                             String[] resultD = fromEncryptor.nextLine().split(" ");

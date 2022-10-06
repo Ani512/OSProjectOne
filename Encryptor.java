@@ -4,26 +4,33 @@ public class Encryptor {
     public static void main(String[] args) {
 //        System.out.println("Encryptor");
         String inp;
+        String passKey = "";
         try (Scanner s = new Scanner(System.in)) {
             inp = s.nextLine();
 
             while (!inp.equalsIgnoreCase("encryptorquit")) {
                 String[] inputs = inp.split(" ");
-                if (inputs.length == 3) {
-                    if (inputs[0].equalsIgnoreCase("encrypt")) {
-                        String e = encrypt(inputs[1].toUpperCase(), inputs[2]);
+                // The TWO Inputs are: 1. type of input 2: value to use
+                if (inputs.length == 2) {
+                    if (inputs[0].equalsIgnoreCase("encrypt") && passKey.length()>0) {
+                        String e = encrypt(inputs[1].toUpperCase(), passKey);
                         if (e!=null) {
                             System.out.println("success " + e);
                         } else {
                             System.out.println("failure ENCRYPTION_ERROR");
                         }
-                    } else if (inputs[0].equalsIgnoreCase("decrypt")) {
-                        String e = decrypt(inputs[1].toUpperCase(), inputs[2]);
+                    } else if (inputs[0].equalsIgnoreCase("decrypt") && passKey.length()>0) {
+                        String e = decrypt(inputs[1].toUpperCase(), passKey);
                         if (e!=null) {
                             System.out.println("success " + e);
                         } else {
                             System.out.println("failure DECRYPTION_ERROR");
                         }
+                    } else if (inputs[0].equalsIgnoreCase("password")) {
+                        passKey = inputs[1].toUpperCase();
+                        System.out.println("success PASSKEY_SET");
+                    } else {
+                        System.out.println("failure PASSKEY_NOT_SET");
                     }
                 } else {
                     System.out.println("failure INVALID_DRIVER_INPUT");
@@ -36,6 +43,7 @@ public class Encryptor {
         }
     }
 
+    // function to encrypt using virnere cipher
     public static String encrypt(String value, String key) {
         try {
             StringBuilder encryptedValue = new StringBuilder();
@@ -53,6 +61,7 @@ public class Encryptor {
         return null;
     }
 
+    // function to decrypt using virnere cipher
     public static String decrypt(String value, String key) {
         try {
             StringBuilder decryptedValue = new StringBuilder();
