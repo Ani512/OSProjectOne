@@ -11,12 +11,12 @@ public class Driver {
         try {
             // Creating a new process called logger
             Process logger = Runtime.getRuntime().exec(new String[] {"java", "Logger.java"});
-            System.out.println("L: " + logger.pid());
+//             System.out.println("L: " + logger.pid());
             OutputStream loggerOut = logger.getOutputStream();
 
             // Creating a new process called encryptor
             Process encryptor = Runtime.getRuntime().exec(new String[] {"java", "Encryptor.java"});
-            System.out.println("E: " + encryptor.pid());
+//             System.out.println("E: " + encryptor.pid());
             OutputStream encryptorOut = encryptor.getOutputStream();
             InputStream encryptorIn = encryptor.getInputStream();
 
