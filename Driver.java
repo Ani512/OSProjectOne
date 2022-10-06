@@ -7,12 +7,14 @@ public class Driver {
     public static void main(String[] args) {
         System.out.println("Ani's Driver");
         List<String> history = new ArrayList<>();
-        String password = null;
+        String password = null; // stores the password after the encryptor processes the password
         try {
+            // Creating a new process called logger
             Process logger = Runtime.getRuntime().exec(new String[] {"java", "Logger.java"});
 //            System.out.println("L: " + logger.pid());
             OutputStream loggerOut = logger.getOutputStream();
 
+            // Creating a new process called encryptor
             Process encryptor = Runtime.getRuntime().exec(new String[] {"java", "Encryptor.java"});
 //            System.out.println("E: " + encryptor.pid());
             OutputStream encryptorOut = encryptor.getOutputStream();
@@ -21,9 +23,12 @@ public class Driver {
             try (PrintStream toLogger = new PrintStream(loggerOut)) {
                 PrintStream toEncryptor = new PrintStream(encryptorOut);
                 Scanner fromEncryptor = new Scanner(encryptorIn);
+//                Opening IN and OUT streams for the respective processes to read and write
 
                 String inp = commands();
                 while (!inp.equalsIgnoreCase("quit") && !inp.equalsIgnoreCase("6")) {
+
+//                    code for handling password
                     if (inp.equalsIgnoreCase("password") || inp.equalsIgnoreCase("1")) {
                         Scanner s = new Scanner(System.in);
                         System.out.print("\tDo you want to use a string from history? (yes | no): ");
@@ -97,6 +102,7 @@ public class Driver {
                         }
                     }
 
+//                    code for handling encryption
                     else if (inp.equalsIgnoreCase("encrypt") || inp.equalsIgnoreCase("2")) {
                         if (password != null && password.length() > 0) {
                             Scanner s = new Scanner(System.in);
@@ -172,6 +178,7 @@ public class Driver {
                         }
                     }
 
+//                    code for handling decryption
                     else if (inp.equalsIgnoreCase("decrypt") || inp.equalsIgnoreCase("3")) {
                         if (password != null && password.length() > 0) {
                             Scanner s = new Scanner(System.in);
@@ -285,7 +292,7 @@ public class Driver {
     // function to take user input
     public static String commands() {
         System.out.println("\nCommands:");
-        System.out.println("1: password");
+        System.out.println("1: passkey");
         System.out.println("2: encrypt");
         System.out.println("3: decrypt");
         System.out.println("4: history");

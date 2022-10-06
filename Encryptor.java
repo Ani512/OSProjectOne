@@ -43,7 +43,7 @@ public class Encryptor {
         }
     }
 
-    // function to encrypt using virnere cipher
+    // function to encrypt using vigenere cipher
     public static String encrypt(String value, String key) {
         try {
             StringBuilder encryptedValue = new StringBuilder();
@@ -61,7 +61,7 @@ public class Encryptor {
         return null;
     }
 
-    // function to decrypt using virnere cipher
+    // function to decrypt using vigenere cipher
     public static String decrypt(String value, String key) {
         try {
             StringBuilder decryptedValue = new StringBuilder();

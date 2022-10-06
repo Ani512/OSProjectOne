@@ -27,13 +27,13 @@ public class Logger {
                 if (inputs.length == 2) {
                     if (inputs[0].equalsIgnoreCase("password")) {
                         currentTime = LocalDateTime.now().format(formatter);
-                        Files.writeString(path, currentTime + " [PASSWORD] passkey updated - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                        Files.writeString(path, currentTime + " [PASSWORD] passkey - " + inputs[1] + "\n", StandardOpenOption.APPEND);
                     } else if (inputs[0].equalsIgnoreCase("encrypt")) {
                         currentTime = LocalDateTime.now().format(formatter);
-                        Files.writeString(path, currentTime + " [ENCRYPT] string encrypted - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                        Files.writeString(path, currentTime + " [ENCRYPT] string - " + inputs[1] + "\n", StandardOpenOption.APPEND);
                     } else if (inputs[0].equalsIgnoreCase("decrypt")) {
                         currentTime = LocalDateTime.now().format(formatter);
-                        Files.writeString(path, currentTime + " [DECRYPT] string decrypted - " + inputs[1] + "\n", StandardOpenOption.APPEND);
+                        Files.writeString(path, currentTime + " [DECRYPT] string - " + inputs[1] + "\n", StandardOpenOption.APPEND);
                     } else {
                         currentTime = LocalDateTime.now().format(formatter);
                         Files.writeString(path, currentTime + " [FAILURE] Unexpected Input\n", StandardOpenOption.APPEND);
