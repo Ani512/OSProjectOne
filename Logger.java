@@ -15,9 +15,9 @@ public class Logger {
         file.createNewFile(); // If file does not exist, creates a new one
         Path path = Paths.get("./logfile.txt");
 
-        try (Scanner s = new Scanner(System.in)) {
-            String inp = s.nextLine();
-
+        Scanner s = new Scanner(System.in);
+        String inp = s.nextLine();
+        try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             String currentTime = LocalDateTime.now().format(formatter);
             Files.writeString(path, currentTime + " [START] Logging Started \n", StandardOpenOption.APPEND);
